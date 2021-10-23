@@ -5,6 +5,7 @@ import { StyleSheet, Button, View, SafeAreaView, Text, Alert , TouchableOpacity,
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import QRCode from 'react-native-qrcode-svg';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 
@@ -50,6 +51,16 @@ const ShowQR = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <QRCode
+        value="http://awesome.link.qr"
+        size={200}
+      />
+      <Button
+        title="Edit QR Code"
+        onPress={() =>
+          navigation.navigate('EditQR')
+        }
+      />
       <Button title="Click here to change" onPress={toggleModal} />
       <Modal
         isVisible={isModalVisible}>
@@ -75,18 +86,14 @@ const ScanScreen = () => {
 
   return (
     <QRCodeScanner onRead={onSuccess}
-      flashMode={RNCamera.Constants.FlashMode.torch}
+      flashMode={RNCamera.Constants.FlashMode.off}
       topContent={
-        <Text style={styles.centerText}>
-          Go to{' '}
-          <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
-          your computer and scan the QR code.
+        <Text style={[styles.centerText, styles.textBold]}>
+          Scan a QuiConnect QR code!
         </Text>
       }
       bottomContent={
-        <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>OK. Got it!</Text>
-        </TouchableOpacity>
+          <Text style={styles.centerText}>Ask your friend to open QuiConnect and show their QR code. </Text>
       }
     />
   );
@@ -110,6 +117,7 @@ const styles = StyleSheet.create({
   buttonTouchable: {
     padding: 16
   }
+
 });
 
 
