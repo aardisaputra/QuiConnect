@@ -37,9 +37,16 @@ const Scanner = ({ navigation }) => {
 //show qr code
 const ShowQR = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+
+  const doneFn = async () => {
+    setIsModalVisible(!isModalVisible);
+    let name = await AsyncStorage.getItem('name'); 
+    console.log(name)
+  }
 
   return (
     <View style={styles.container}>
@@ -49,7 +56,7 @@ const ShowQR = ({ navigation }) => {
         <View>
           <QRForm />
           <View>
-            <Button title="Done" onPress={toggleModal} />
+            <Button title="Done" onPress={doneFn} />
           </View>
         </View>
       </Modal>
