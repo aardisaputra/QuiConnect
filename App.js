@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import t from 'tcomb-form-native';
 import {Picker} from '@react-native-picker/picker';
 
+import QRCode from 'react-native-qrcode-svg';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 
@@ -48,14 +49,19 @@ const ShowQRScreen = ({ navigation }) => {
 //show qr code
 const ShowQR = ({ navigation }) => {
   return (
-    //qr code scanner
-    //bottom navigator
-    <Button
-      title="Edit QR Code"
-      onPress={() =>
-        navigation.navigate('EditQR')
-      }
-    />
+    <View style={styles.container}>
+      <QRCode
+        value="http://awesome.link.qr"
+        size={200}
+      />
+      <Button
+        title="Edit QR Code"
+        onPress={() =>
+          navigation.navigate('EditQR')
+        }
+      />
+    </View>
+    
   );
 };
 
@@ -85,18 +91,14 @@ const ScanScreen = () => {
 
   return (
     <QRCodeScanner onRead={onSuccess}
-      flashMode={RNCamera.Constants.FlashMode.torch}
+      flashMode={RNCamera.Constants.FlashMode.off}
       topContent={
-        <Text style={styles.centerText}>
-          Go to{' '}
-          <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
-          your computer and scan the QR code.
+        <Text style={[styles.centerText, styles.textBold]}>
+          Scan a QuiConnect QR code!
         </Text>
       }
       bottomContent={
-        <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>OK. Got it!</Text>
-        </TouchableOpacity>
+          <Text style={styles.centerText}>Ask your friend to open QuiConnect and show their QR code. </Text>
       }
     />
   );
@@ -120,6 +122,7 @@ const styles = StyleSheet.create({
   buttonTouchable: {
     padding: 16
   }
+
 });
 
 
