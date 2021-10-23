@@ -1,112 +1,127 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert , TouchableOpacity, Linking} from 'react-native';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import t from 'tcomb-form-native';
+import {Picker} from '@react-native-picker/picker';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import QRCodeScanner from 'react-native-qrcode-scanner';
+import { RNCamera } from 'react-native-camera';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+const ShowQRStack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+// const Form = t.form.Form;
+
+
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Scan" component={Scanner} options={{tabBarShowLabel: true}} />
+        <Tab.Screen name="Show" component={ShowQRScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
+
+//scanner homescreen
+const Scanner = ({ navigation }) => {
+  return (
+    <ScanScreen />
+  );
+};
+
+//show qr page
+const ShowQRScreen = ({ navigation }) => {
+  return (
+    //qr code shower
+    //button to edit page
+    <ShowQRStack.Navigator>
+      <ShowQRStack.Screen name="ShowQR" component={ShowQR}/>
+      <ShowQRStack.Screen name="EditQR" component={EditQR}/>
+    </ShowQRStack.Navigator>   
+  );
+};
+
+//show qr code
+const ShowQR = ({ navigation }) => {
+  return (
+    //qr code scanner
+    //bottom navigator
+    <Button
+      title="Edit QR Code"
+      onPress={() =>
+        navigation.navigate('EditQR')
+      }
+    />
+  );
+};
+
+//edit info 
+const EditQR = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+        <Form type={User} />
     </View>
   );
 };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+// user info
+// const User = t.struct({
+//   name: t.String,
+//   instagram: t.String,
+//   snapchat: t.String,
+// });
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+//QR SCANNER COMPONENT
+const ScanScreen = () => {
+  const onSuccess = e => {
+    Linking.openURL(e.data).catch(err =>
+      console.error('An error occured', err)
+    );
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <QRCodeScanner onRead={onSuccess}
+      flashMode={RNCamera.Constants.FlashMode.torch}
+      topContent={
+        <Text style={styles.centerText}>
+          Go to{' '}
+          <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
+          your computer and scan the QR code.
+        </Text>
+      }
+      bottomContent={
+        <TouchableOpacity style={styles.buttonTouchable}>
+          <Text style={styles.buttonText}>OK. Got it!</Text>
+        </TouchableOpacity>
+      }
+    />
   );
-};
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
+  centerText: {
+    flex: 1,
     fontSize: 18,
-    fontWeight: '400',
+    padding: 32,
+    color: '#777'
   },
-  highlight: {
-    fontWeight: '700',
+  textBold: {
+    fontWeight: '500',
+    color: '#000'
   },
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)'
+  },
+  buttonTouchable: {
+    padding: 16
+  }
 });
 
+
 export default App;
+
