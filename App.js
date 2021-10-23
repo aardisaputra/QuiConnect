@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert , TouchableOpacity, Linking} from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert , TouchableOpacity, Linking, TextInput, useState} from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import t from 'tcomb-form-native';
-import {Picker} from '@react-native-picker/picker';
 
 import QRCode from 'react-native-qrcode-svg';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 
-const ShowQRStack = createNativeStackNavigator();
+import Modal from 'react-native-modal';
+import QRForm from './screens/QREditorModal';
+
+import AsyncStorage from '@react-native-community/async-storage';
+
 const Tab = createBottomTabNavigator();
-// const Form = t.form.Form;
 
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Scan" component={Scanner} options={{tabBarShowLabel: true}} />
-        <Tab.Screen name="Show" component={ShowQRScreen} />
+        <Tab.Screen name="Show" component={ShowQR} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -34,20 +35,13 @@ const Scanner = ({ navigation }) => {
   );
 };
 
-//show qr page
-const ShowQRScreen = ({ navigation }) => {
-  return (
-    //qr code shower
-    //button to edit page
-    <ShowQRStack.Navigator>
-      <ShowQRStack.Screen name="ShowQR" component={ShowQR}/>
-      <ShowQRStack.Screen name="EditQR" component={EditQR}/>
-    </ShowQRStack.Navigator>   
-  );
-};
-
 //show qr code
 const ShowQR = ({ navigation }) => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
     <View style={styles.container}>
       <QRCode
@@ -60,26 +54,20 @@ const ShowQR = ({ navigation }) => {
           navigation.navigate('EditQR')
         }
       />
+      <Button title="Click here to change" onPress={toggleModal} />
+      <Modal
+        isVisible={isModalVisible}>
+        <View>
+          <QRForm />
+          <View>
+            <Button title="Done" onPress={toggleModal} />
+          </View>
+        </View>
+      </Modal>
     </View>
     
   );
 };
-
-//edit info 
-const EditQR = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-        <Form type={User} />
-    </View>
-  );
-};
-
-// user info
-// const User = t.struct({
-//   name: t.String,
-//   instagram: t.String,
-//   snapchat: t.String,
-// });
 
 //QR SCANNER COMPONENT
 const ScanScreen = () => {
