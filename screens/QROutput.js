@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
-
-import AsyncStorage from '@react-native-community/async-storage';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Linking} from 'react-native';
+import Clipboard from '@react-native-community/clipboard';
 
 const QROutput = ({dict}) => {
 //   let successRead = await AsyncStorage.getItem('successRead');
@@ -29,14 +28,13 @@ const QROutput = ({dict}) => {
       <TouchableOpacity style={styles1.button}>
         <Text>Name: {dict['name']}</Text>
       </TouchableOpacity>
-      {/* <Text>Name: {dict['name']}</Text> */}
-      <TouchableOpacity style={styles1.button}>
-      <Text onPress={() => Linking.openURL('http://google.com')}>Instagram: {dict['instagram']}</Text>
+      <TouchableOpacity style={styles1.button} onPress={() => Linking.openURL('instagram://user?username=' + dict['instagram'])}>
+      <Text>Instagram: {dict['instagram']}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles1.button}>
-      <Text onPress={() => Linking.openURL('http://google.com')} >Snapchat: {dict['snapchat']}</Text>
+      <TouchableOpacity style={styles1.button} onPress={() => Clipboard.setString(dict['snapchat'])} >
+      <Text>Snapchat: {dict['snapchat']}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles1.button}>
+      <TouchableOpacity style={styles1.button} onPress={() => Clipboard.setString(dict['phone'])}>
       <Text>Phone: {dict['phone']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button}>
