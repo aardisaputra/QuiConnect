@@ -44,13 +44,17 @@ const Scanner = ({ navigation }) => {
 const ShowQR = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState({'name': '', 'instagram': '', 'snapchat': '', 'phone': '', 'note': ''})
-  const [successDict, setSuccessDict] = React.useState({})
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
 
-  const doneFn = async () => {
-    setIsModalVisible(!isModalVisible);
+  React.useEffect(() => {
+    // Some initialization logic here
+    updateUserInfo()
+  }, []);
+
+  const updateUserInfo = async () => {
+    console.log('updateUserInfo')
     let name = await AsyncStorage.getItem('name'); 
     let instagram = await AsyncStorage.getItem('instagram'); 
     let snapchat = await AsyncStorage.getItem('snapchat'); 
@@ -59,14 +63,9 @@ const ShowQR = ({ navigation }) => {
     setUserInfo({'name': name, 'instagram': instagram, 'snapchat': snapchat, 'phone': phone, 'note': note})
   }
 
-  const stringToDict = (str) => {
-    let result = {}
-    let splitted = str.split(',')
-    splitted.forEach((keyValueStr) => {
-      keyValue = keyValueStr.split(':')
-      result[keyValue[0]] = keyValue[1]
-    })
-    return result
+  const doneFn = () => {
+    setIsModalVisible(!isModalVisible);
+    updateUserInfo()
   }
 
   const dictToString = (dict) => {

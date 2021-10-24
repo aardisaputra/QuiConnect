@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Linking} from 'react-native';
-import Clipboard from '@react-native-community/clipboard';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Linking, Alert} from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 const QROutput = ({dict}) => {
 //   let successRead = await AsyncStorage.getItem('successRead');
@@ -22,19 +22,40 @@ const QROutput = ({dict}) => {
 //   console.log(successReadDict["name"]);
 
   
+  const copiedAlert = () => {
+    Alert.alert(
+      "Message",
+      "Copied to clipboard!",
+      [
+        { text: "OK" }
+      ]
+    );
+  }
 
   return (
     <View style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
       <TouchableOpacity style={styles1.button}>
         <Text>Name: {dict['name']}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles1.button} onPress={() => Linking.openURL('instagram://user?username=' + dict['instagram'])}>
+      <TouchableOpacity style={styles1.button} onPress={() => {
+        if (dict['instagram']) Linking.openURL('instagram://user?username=' + dict['instagram'])
+      }}>
         <Text>Instagram: {dict['instagram']}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles1.button} onPress={() => Clipboard.setString(dict['snapchat'])} >
+      <TouchableOpacity style={styles1.button} onPress={() => {
+        if (dict['snapchat']) {
+          Clipboard.setString(dict['snapchat'])
+          copiedAlert()
+        }
+      }} >
         <Text>Snapchat: {dict['snapchat']}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles1.button} onPress={() => Clipboard.setString(dict['phone'])}>
+      <TouchableOpacity style={styles1.button} onPress={() => {
+        if (dict['phone']) {
+          Clipboard.setString(dict['phone'])
+          copiedAlert()
+        }
+      }}>
         <Text>Phone: {dict['phone']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button}>
