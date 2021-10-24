@@ -29,16 +29,16 @@ const QROutput = ({dict}) => {
         <Text>Name: {dict['name']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button} onPress={() => Linking.openURL('instagram://user?username=' + dict['instagram'])}>
-      <Text>Instagram: {dict['instagram']}</Text>
+        <Text>Instagram: {dict['instagram']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button} onPress={() => Clipboard.setString(dict['snapchat'])} >
-      <Text>Snapchat: {dict['snapchat']}</Text>
+        <Text>Snapchat: {dict['snapchat']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button} onPress={() => Clipboard.setString(dict['phone'])}>
-      <Text>Phone: {dict['phone']}</Text>
+        <Text>Phone: {dict['phone']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button}>
-      <Text>Note: {dict['note']}</Text>
+        <Text>Note: {dict['note']}</Text>
       </TouchableOpacity>
     </View>
   );
