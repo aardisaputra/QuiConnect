@@ -143,7 +143,7 @@ const ScanScreen = () => {
 
 
   return (
-    <View>
+    <View style={{justifyContent: 'center'}}>
       <QRCodeScanner onRead={onSuccess}
         flashMode={RNCamera.Constants.FlashMode.off}
         topContent={
