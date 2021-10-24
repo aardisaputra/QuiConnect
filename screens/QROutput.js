@@ -31,10 +31,10 @@ const QROutput = ({dict}) => {
       </TouchableOpacity>
       {/* <Text>Name: {dict['name']}</Text> */}
       <TouchableOpacity style={styles1.button}>
-      <Text>Instagram: {dict['instagram']}</Text>
+      <Text onPress={() => Linking.openURL('http://google.com')}>Instagram: {dict['instagram']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button}>
-      <Text>Snapchat: {dict['snapchat']}</Text>
+      <Text onPress={() => Linking.openURL('http://google.com')} >Snapchat: {dict['snapchat']}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles1.button}>
       <Text>Phone: {dict['phone']}</Text>

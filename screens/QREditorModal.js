@@ -15,24 +15,17 @@ const QRForm = () => {
   };
 
   return (
-    <View style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
-      <View >
-      <View>
-      <TextInput placeholderTextColor="white" style={styles1.textInputStyle} placeholder="Enter Name" onChangeText={(value) => setData("name", value)}/>
-      </View>
-      <View>
-      <TextInput placeholderTextColor="white" style={styles1.textInputStyle} placeholder="Enter Instagram" onChangeText={(value) => setData("instagram", value)}/>
-      </View>
-      <View>
-      <TextInput placeholderTextColor="white" style={styles1.textInputStyle} placeholder="Enter Snapchat" onChangeText={(value) => setData("snapchat", value)}/>
-      </View>
-      <View>
-        <TextInput placeholderTextColor="white" style={styles1.textInputStyle} placeholder="Enter Phone Number" onChangeText={(value) => setData("phone", value)}/>
-      </View>
-      <View>
-        <TextInput placeholderTextColor="white" style={styles1.textInputStyle} placeholder="Enter Optional Note" onChangeText={(value) => setData("note", value)}/>
-      </View>
-      </View>
+    <View style={{backgroundColor: '#fffff0'}}>
+      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Name:" onChangeText={(value) => setData("name", value)}/>
+
+      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Instagram:" onChangeText={(value) => setData("instagram", value)}/>
+
+      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Snapchat:" onChangeText={(value) => setData("snapchat", value)}/>
+
+      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Phone Number:" onChangeText={(value) => setData("phone", value)}/>
+
+      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Optional Note:" onChangeText={(value) => setData("note", value)}/>
+
     </View>
   );
 }
@@ -43,15 +36,15 @@ const styles1 = StyleSheet.create({
     color: "white",
   },
   textInputStyle: {
-    color: 'grey',
+    color: 'black',
     fontSize: 18, 
     justifyContent: "center",
-    fontFamily: 'Apple Color Emoji',
+    fontFamily: 'AppleSDGothicNeo-Medium',
     fontStyle: 'italic',
     fontWeight: "bold",
     paddingHorizontal: 10, 
     padding: 2,
-    // margin: 1
+    margin: 1
    },
 });
 
