@@ -38,6 +38,7 @@ const Scanner = ({ navigation }) => {
 //show qr code
 const ShowQR = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [userInfo, setUserInfo] = React.useState({'name': '', 'instagram': '', 'snapchat': '', 'phone': '', 'note': ''})
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -50,14 +51,25 @@ const ShowQR = ({ navigation }) => {
     let snapchat = await AsyncStorage.getItem('snapchat'); 
     let phone = await AsyncStorage.getItem('phone'); 
     let note = await AsyncStorage.getItem('note'); 
+    setUserInfo({'name': name, 'instagram': instagram, 'snapchat': snapchat, 'phone': phone, 'note': note})
+  }
 
-    console.log(name)
+  const dictToString = (dict) => {
+    let result = ''
+    Object.entries(dict).forEach(([key, value]) => {
+      if (value == null) value = ''
+      result += (key + ':' + value + ',');
+    });
+    if (result.length) {
+      result = result.substr(0, result.length - 1) // get rid of the last comma
+    }
+    return result
   }
 
   return (
     <View>
       <QRCode
-        value="http://awesome.link.qr"
+        value={dictToString(userInfo)}
         size={200}
       />
 
@@ -78,6 +90,17 @@ const ShowQR = ({ navigation }) => {
 
 //QR SCANNER COMPONENT
 const ScanScreen = () => {
+
+  const stringToDict = (str) => {
+    let result = {}
+    let keyValuePairs = str.split(',')
+    keyValuePairs.forEach((keyValueStr) => {
+      let keyValueArray = keyValueStr.split(':')
+      result[keyValueArray[0]] = keyValueArray[1]
+    })
+    return result
+  }
+
   const onSuccess = e => {
     Linking.openURL(e.data).catch(err =>
       console.error('An error occured', err)
