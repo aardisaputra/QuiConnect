@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity} from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -26,16 +26,32 @@ const QROutput = ({dict}) => {
 
   return (
     <View style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
-      <Text>Name: {dict['name']}</Text>
+      <TouchableOpacity style={styles1.button}>
+        <Text>Name: {dict['name']}</Text>
+      </TouchableOpacity>
+      {/* <Text>Name: {dict['name']}</Text> */}
+      <TouchableOpacity style={styles1.button}>
       <Text>Instagram: {dict['instagram']}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles1.button}>
       <Text>Snapchat: {dict['snapchat']}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles1.button}>
       <Text>Phone: {dict['phone']}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles1.button}>
       <Text>Note: {dict['note']}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles1 = StyleSheet.create({
+  button: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10
+  },
   textboxfieldd: {
     fontSize: 30,
     color: "white",

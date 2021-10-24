@@ -94,8 +94,8 @@ const ShowQR = ({ navigation }) => {
 
       <Button title="Click here to change" onPress={toggleModal} />
       <Modal
-        isVisible={isModalVisible}>
-        <View>
+        isVisible={isModalVisible} style={{flex: 1}}>
+        <View> 
           <QRForm />
           <View>
             <Button title="Done" onPress={doneFn} />
@@ -144,22 +144,32 @@ const ScanScreen = () => {
 
   return (
     <View style={{justifyContent: 'center'}}>
-      <QRCodeScanner onRead={onSuccess}
-        flashMode={RNCamera.Constants.FlashMode.off}
-        topContent={
-          <Text style={[styles.centerText, styles.textBold]}>
+      <View>
+      <Text style={[styles.centerText, styles.textBold]}>
             Scan a QuiConnect QR code!
-          </Text>
-        }
-        bottomContent={
-            <Text style={styles.centerText}>Ask your friend to open QuiConnect and show their QR code. </Text>
-        }
+      </Text>
+      </View>
+      <QRCodeScanner onRead={onSuccess}
+        flashMode={RNCamera.Constants.FlashMode.off} 
+        // topContent={
+        //   <Text style={[styles.centerText, styles.textBold]}>
+        //     Scan a QuiConnect QR code!
+        //   </Text>
+        // }
+        // bottomContent={
+        //     <Text style={styles.centerText}>Ask your friend to open QuiConnect and show their QR code. </Text>
+        // }
       />
+      <View>
+      <Text style={[styles.centerText, styles.textBold]}>
+        Ask your friend to open QuiConnect and show their QR code.
+      </Text>
+      </View>
       <Modal isVisible={isModalVisible}>
         <View>
           <QROutput dict={successDict} />
           <View>
-            <Button title="Done" onPress={toggleModal} />
+            <Button title="Done" onPress={toggleModal} style={{fontWeight: "bold"}}/>
           </View>
         </View>
       </Modal>
@@ -169,10 +179,11 @@ const ScanScreen = () => {
 
 const styles = StyleSheet.create({
   centerText: {
-    flex: 1,
+    // flex: 1,
     fontSize: 18,
     padding: 32,
-    color: '#777'
+    // color: '#777',
+    color: 'white'
   },
   textBold: {
     fontWeight: '500',
