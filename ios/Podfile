@@ -16,6 +16,7 @@ target 'QuiConnect2' do
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'QuiConnect2Tests' do
     inherit! :complete

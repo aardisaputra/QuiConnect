@@ -57,7 +57,7 @@ const styles1 = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: 'AppleSDGothicNeo-Medium',
     padding: 2,
-    margin: 1
+    // margin: 1
   },
   textInputStyle: {
 

@@ -143,25 +143,17 @@ const ScanScreen = () => {
 
 
   return (
-    <View style={{justifyContent: 'center'}}>
-      <View>
+    <View >
+      <View style={{justifyContent: 'center', margin: "7%"}}>
       <Text style={[styles.centerText, styles.textBold]}>
             Scan a QuiConnect QR code!
       </Text>
       </View>
       <QRCodeScanner onRead={onSuccess}
         flashMode={RNCamera.Constants.FlashMode.off} 
-        // topContent={
-        //   <Text style={[styles.centerText, styles.textBold]}>
-        //     Scan a QuiConnect QR code!
-        //   </Text>
-        // }
-        // bottomContent={
-        //     <Text style={styles.centerText}>Ask your friend to open QuiConnect and show their QR code. </Text>
-        // }
       />
       <View>
-      <Text style={[styles.centerText, styles.textBold, styles.bottomScanText]}>
+        <Text style={[styles.bottomScanText, styles.centerText, styles.textBold]}>
         Ask your friend to open QuiConnect and show their QR code.
       </Text>
       </View>
@@ -173,6 +165,7 @@ const ScanScreen = () => {
           </View>
         </View>
       </Modal>
+      
     </View>
   );
 }
@@ -180,10 +173,11 @@ const ScanScreen = () => {
 const styles = StyleSheet.create({
   centerText: {
     // flex: 1,
-    fontSize: 18,
-    padding: 32,
+    textAlign: "center",
+    fontSize: 20,
+    padding: 30,
     // color: '#777',
-    color: 'white'
+    color: 'black'
   },
   textBold: {
     fontWeight: '500',
@@ -197,7 +191,10 @@ const styles = StyleSheet.create({
     padding: 16
   },
   bottomScanText: {
-    height:'10%'
+    marginBottom: "3%",
+    textAlign: "center",
+    fontSize: 20,
+    padding: 30,
   }
 
 });

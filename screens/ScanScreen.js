@@ -41,6 +41,7 @@ const ScanScreen = () => {
 const styles = StyleSheet.create({
   centerText: {
     flex: 1,
+    // textAlign: "center",
     fontSize: 18,
     padding: 32,
     color: '#777'
