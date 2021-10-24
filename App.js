@@ -40,17 +40,7 @@ const Scanner = ({ navigation }) => {
   return (
     <View>
       <ScanScreen />
-      <Modal
-          isVisible={isModalVisible}>
-          <View>
-            <QROutput />
-            <View>
-              <Button title="Done" onPress={doneFn} />
-            </View>
-          </View>
-      </Modal>
     </View>
-    
   );
 };
 
@@ -109,38 +99,47 @@ const ShowQR = ({ navigation }) => {
 
 //QR SCANNER COMPONENT
 const ScanScreen = () => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
 
-  const stringToDict = (str) => {
-    let result = {}
-    let keyValuePairs = str.split(',')
-    keyValuePairs.forEach((keyValueStr) => {
-      let keyValueArray = keyValueStr.split(':')
-      result[keyValueArray[0]] = keyValueArray[1]
-    })
-    return result
-  }
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
-  const onSuccess = e => {
+  const onSuccess = async e => {
     //string to dict
     //set asyncstorage
     //modal
-    Linking.openURL(e.data).catch(err =>
-      console.error('An error occured', err)
-    );
+    try {
+      await AsyncStorage.setItem("successRead", e.data);
+    } catch (error) {
+      console.log("Error saving data" + error);
+    }
+    toggleModal();
   };
 
+
   return (
-    <QRCodeScanner onRead={onSuccess}
-      flashMode={RNCamera.Constants.FlashMode.off}
-      topContent={
-        <Text style={[styles.centerText, styles.textBold]}>
-          Scan a QuiConnect QR code!
-        </Text>
-      }
-      bottomContent={
-          <Text style={styles.centerText}>Ask your friend to open QuiConnect and show their QR code. </Text>
-      }
-    />
+    <View>
+      <QRCodeScanner onRead={onSuccess}
+        flashMode={RNCamera.Constants.FlashMode.off}
+        topContent={
+          <Text style={[styles.centerText, styles.textBold]}>
+            Scan a QuiConnect QR code!
+          </Text>
+        }
+        bottomContent={
+            <Text style={styles.centerText}>Ask your friend to open QuiConnect and show their QR code. </Text>
+        }
+      />
+      <Modal isVisible={isModalVisible}>
+        <View>
+          <QROutput />
+          <View>
+            <Button title="Done" onPress={toggleModal} />
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 }
 
