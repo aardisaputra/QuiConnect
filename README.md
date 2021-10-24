@@ -10,10 +10,12 @@ iOS
 
 
 
-https://user-images.githubusercontent.com/74475907/138601986-ecf6817f-1947-4f04-89c0-c0094cd332f2.mp4
-
+https://user-images.githubusercontent.com/74475907/138601996-1ac506bc-35d5-435a-bae3-411061e89944.mp4
 
 
 Android
-https://user-images.githubusercontent.com/74475907/138599488-ecc4e773-6db2-4c1e-b5fe-b9760de0a766.mp4
+
+
+
+https://user-images.githubusercontent.com/74475907/138602001-60ae4a50-60b5-438a-8a99-014d6962bcb2.mp4
 
