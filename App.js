@@ -11,6 +11,7 @@ import { RNCamera } from 'react-native-camera';
 
 import Modal from 'react-native-modal';
 import QRForm from './screens/QREditorModal';
+import QROutput from './screens/QROutput';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -30,8 +31,26 @@ const App = () => {
 
 //scanner homescreen
 const Scanner = ({ navigation }) => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   return (
-    <ScanScreen />
+    <View>
+      <ScanScreen />
+      <Modal
+          isVisible={isModalVisible}>
+          <View>
+            <QROutput />
+            <View>
+              <Button title="Done" onPress={doneFn} />
+            </View>
+          </View>
+      </Modal>
+    </View>
+    
   );
 };
 
@@ -79,6 +98,9 @@ const ShowQR = ({ navigation }) => {
 //QR SCANNER COMPONENT
 const ScanScreen = () => {
   const onSuccess = e => {
+    //string to dict
+    //set asyncstorage
+    //modal
     Linking.openURL(e.data).catch(err =>
       console.error('An error occured', err)
     );
