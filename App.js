@@ -48,7 +48,7 @@ const Scanner = ({ navigation }) => {
 const ShowQR = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState({'name': '', 'instagram': '', 'snapchat': '', 'phone': '', 'note': ''})
-
+  const [successDict, setSuccessDict] = React.useState({})
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
@@ -61,6 +61,16 @@ const ShowQR = ({ navigation }) => {
     let phone = await AsyncStorage.getItem('phone'); 
     let note = await AsyncStorage.getItem('note'); 
     setUserInfo({'name': name, 'instagram': instagram, 'snapchat': snapchat, 'phone': phone, 'note': note})
+  }
+
+  const stringToDict = (str) => {
+    let result = {}
+    let splitted = str.split(',')
+    splitted.forEach((keyValueStr) => {
+      keyValue = keyValueStr.split(':')
+      result[keyValue[0]] = keyValue[1]
+    })
+    return result
   }
 
   const dictToString = (dict) => {
@@ -79,7 +89,7 @@ const ShowQR = ({ navigation }) => {
     <View>
       <QRCode
         value={dictToString(userInfo)}
-        size={200}
+        size={300}
       />
 
       <Button title="Click here to change" onPress={toggleModal} />
@@ -99,21 +109,35 @@ const ShowQR = ({ navigation }) => {
 
 //QR SCANNER COMPONENT
 const ScanScreen = () => {
+  const [successDict, setSuccessDict] = React.useState({});
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
 
+  const stringToDict = (str) => {
+    let result = {}
+    let splitted = str.split(',')
+    splitted.forEach((keyValueStr) => {
+      let keyValue = keyValueStr.split(':')
+      result[keyValue[0]] = keyValue[1]
+    })
+    return result
+  }
+
   const onSuccess = async e => {
     //string to dict
     //set asyncstorage
     //modal
+    console.log(e.data)
     try {
-      await AsyncStorage.setItem("successRead", e.data);
+      setSuccessDict(stringToDict(e.data))
+      //await AsyncStorage.setItem("successRead", e.data);
     } catch (error) {
       console.log("Error saving data" + error);
     }
+
     toggleModal();
   };
 
@@ -133,7 +157,7 @@ const ScanScreen = () => {
       />
       <Modal isVisible={isModalVisible}>
         <View>
-          <QROutput />
+          <QROutput dict={successDict} />
           <View>
             <Button title="Done" onPress={toggleModal} />
           </View>

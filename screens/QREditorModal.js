@@ -16,7 +16,6 @@ const QRForm = () => {
 
   return (
     <View style={{backgroundColor: 'rgba(0,0,0,0.5)'}}>
-      <Text> Details </Text>
       <View>
         <TextInput placeholderTextColor="white" style={styles1.textInputStyle} placeholder="Enter Name" onChangeText={(value) => setData("name", value)}/>
         <TextInput placeholderTextColor="white" style={styles1.textInputStyle} placeholder="Enter Instagram" onChangeText={(value) => setData("instagram", value)}/>
