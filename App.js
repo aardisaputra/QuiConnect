@@ -46,21 +46,21 @@ const ShowQR = ({ navigation }) => {
   const doneFn = async () => {
     setIsModalVisible(!isModalVisible);
     let name = await AsyncStorage.getItem('name'); 
+    let instagram = await AsyncStorage.getItem('instagram'); 
+    let snapchat = await AsyncStorage.getItem('snapchat'); 
+    let phone = await AsyncStorage.getItem('phone'); 
+    let note = await AsyncStorage.getItem('note'); 
+
     console.log(name)
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <QRCode
         value="http://awesome.link.qr"
         size={200}
       />
-      <Button
-        title="Edit QR Code"
-        onPress={() =>
-          navigation.navigate('EditQR')
-        }
-      />
+
       <Button title="Click here to change" onPress={toggleModal} />
       <Modal
         isVisible={isModalVisible}>
