@@ -29,7 +29,6 @@ const QROutput = ({dict}) => {
       <TouchableOpacity style={styles1.button}>
         <Text>Name: {dict['name']}</Text>
       </TouchableOpacity>
-      {/* <Text>Name: {dict['name']}</Text> */}
       <TouchableOpacity style={styles1.button}>
       <Text onPress={() => Linking.openURL('http://google.com')}>Instagram: {dict['instagram']}</Text>
       </TouchableOpacity>

@@ -161,7 +161,7 @@ const ScanScreen = () => {
         // }
       />
       <View>
-      <Text style={[styles.centerText, styles.textBold]}>
+      <Text style={[styles.centerText, styles.textBold, styles.bottomScanText]}>
         Ask your friend to open QuiConnect and show their QR code.
       </Text>
       </View>
@@ -195,6 +195,9 @@ const styles = StyleSheet.create({
   },
   buttonTouchable: {
     padding: 16
+  },
+  bottomScanText: {
+    height:'10%'
   }
 
 });

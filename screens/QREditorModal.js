@@ -16,16 +16,26 @@ const QRForm = () => {
 
   return (
     <View style={{backgroundColor: '#fffff0'}}>
-      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Name:" onChangeText={(value) => setData("name", value)}/>
-
-      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Instagram:" onChangeText={(value) => setData("instagram", value)}/>
-
-      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Snapchat:" onChangeText={(value) => setData("snapchat", value)}/>
-
-      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Phone Number:" onChangeText={(value) => setData("phone", value)}/>
-
-      <TextInput placeholderTextColor="black" style={styles1.textInputStyle} placeholder="Enter Optional Note:" onChangeText={(value) => setData("note", value)}/>
-
+      <View style={styles1.textInputStyle}>
+        <Text style={[styles1.text, styles1.textBefore]}>Name: </Text>
+        <TextInput placeholderTextColor="black" style={[styles1.textInputStyle, styles1.text]} onChangeText={(value) => setData("name", value)}/>
+      </View>
+      <View style={styles1.textInputStyle}>
+        <Text style={[styles1.text, styles1.textBefore]}>Instagram: </Text>
+      <TextInput placeholderTextColor="black" style={[styles1.textInputStyle, styles1.text]} onChangeText={(value) => setData("instagram", value)}/>
+      </View>
+      <View style={styles1.textInputStyle}>
+        <Text style={[styles1.text, styles1.textBefore]}>Snapchat: </Text>
+      <TextInput placeholderTextColor="black" style={[styles1.textInputStyle, styles1.text]} onChangeText={(value) => setData("snapchat", value)}/>
+      </View>
+      <View style={styles1.textInputStyle}>
+        <Text style={[styles1.text, styles1.textBefore]}>Phone Number: </Text>
+      <TextInput placeholderTextColor="black" style={[styles1.textInputStyle, styles1.text]}  onChangeText={(value) => setData("phone", value)}/>
+      </View>
+      <View style={styles1.textInputStyle}>
+        <Text style={[styles1.text, styles1.textBefore]}>Optional Note: </Text>
+      <TextInput placeholderTextColor="black" style={[styles1.textInputStyle, styles1.text]} onChangeText={(value) => setData("note", value)}/>
+      </View>
     </View>
   );
 }
@@ -35,16 +45,26 @@ const styles1 = StyleSheet.create({
     fontSize: 30,
     color: "white",
   },
-  textInputStyle: {
+  text: {
     color: 'black',
-    fontSize: 18, 
-    justifyContent: "center",
+    fontSize: 17, 
+    // justifyContent: "center",
     fontFamily: 'AppleSDGothicNeo-Medium',
     fontStyle: 'italic',
     fontWeight: "bold",
-    paddingHorizontal: 10, 
+  },
+  textBefore: {
+    fontWeight: "bold",
+    fontFamily: 'AppleSDGothicNeo-Medium',
     padding: 2,
     margin: 1
+  },
+  textInputStyle: {
+
+    flexDirection:"row",
+    color:'red',
+    padding: 1,
+    margin: 0.5
    },
 });
 
