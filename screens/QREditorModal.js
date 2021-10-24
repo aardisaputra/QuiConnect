@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const QRForm = () => {
   const [value, setValue] = useState(0);
-
+  const 
   const setData = async (key, value) => {
     try {
       await AsyncStorage.setItem(key, value);
@@ -14,6 +14,15 @@ const QRForm = () => {
     }
   };
 
+  const getData = async (key) => {
+    let value = await AsyncStorage.getItem(key); 
+    return value
+  }
+  let name = getData('name')
+  let instagram = getData('instagram')
+  let snapchat = getData('snapchat')
+  let phone = getData('phone')
+  let note = getData('note')
   return (
     <View style={{backgroundColor: '#fffff0'}}>
       <View style={styles1.textInputStyle}>

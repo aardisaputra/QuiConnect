@@ -33,10 +33,6 @@ const App = () => {
 const Scanner = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-  };
-
   return (
     <View>
       <ScanScreen />
@@ -77,7 +73,7 @@ const ShowQR = ({ navigation }) => {
     let result = ''
     Object.entries(dict).forEach(([key, value]) => {
       if (value == null) value = ''
-      result += (key + ':' + value + ',');
+      result += (value + '|');
     });
     if (result.length) {
       result = result.substr(0, result.length - 1) // get rid of the last comma
@@ -86,10 +82,12 @@ const ShowQR = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+
       <QRCode
         value={dictToString(userInfo)}
         size={300}
+        style={{flex: 1}}
       />
 
       <Button title="Click here to change" onPress={toggleModal} />
@@ -113,31 +111,27 @@ const ScanScreen = () => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const toggleModal = () => {
+    if (isModalVisible) {
+      // dismissing, should reactivate scanner
+      this.scanner.reactivate()
+    }
     setIsModalVisible(!isModalVisible);
   };
 
   const stringToDict = (str) => {
+    let labels = ['name', 'instagram', 'snapchat', 'phone', 'note']
     let result = {}
-    let splitted = str.split(',')
-    splitted.forEach((keyValueStr) => {
-      let keyValue = keyValueStr.split(':')
-      result[keyValue[0]] = keyValue[1]
-    })
+    let splitted = str.split('|')
+    for(let i = 0; i < splitted.length; i++) {
+      result[labels[i]] = splitted[i]
+    }
     return result
   }
 
   const onSuccess = async e => {
-    //string to dict
-    //set asyncstorage
-    //modal
+    // convert string to dictionary and show modal
     console.log(e.data)
-    try {
-      setSuccessDict(stringToDict(e.data))
-      //await AsyncStorage.setItem("successRead", e.data);
-    } catch (error) {
-      console.log("Error saving data" + error);
-    }
-
+    setSuccessDict(stringToDict(e.data))
     toggleModal();
   };
 
@@ -151,6 +145,7 @@ const ScanScreen = () => {
       </View>
       <QRCodeScanner onRead={onSuccess}
         flashMode={RNCamera.Constants.FlashMode.off} 
+        ref={(node) => { this.scanner = node }}
       />
       <View>
         <Text style={[styles.bottomScanText, styles.centerText, styles.textBold]}>
