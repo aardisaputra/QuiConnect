@@ -6,7 +6,7 @@ Put all you social media accounts, contact details into one QR code with this si
 Have your friends scan the QR code with this app and they will have all your social media handles in one go!
 
 ## Official Demo Video
-[![Calhacks QuiConnect Demo Video]({https://img.youtube.com/vi/vczOOMk28RY/0.jpg})]({https://youtu.be/vczOOMk28RY} "Link to Video")
+[![Calhacks QuiConnect Demo Video](https://img.youtube.com/vi/vczOOMk28RY/0.jpg)]({https://youtu.be/vczOOMk28RY} "Link to Video")
 
 ## Other Videos
 iOS
