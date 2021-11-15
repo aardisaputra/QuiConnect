@@ -1,5 +1,7 @@
 # QuiConnect
 
+https://devpost.com/software/quiconnect
+
 ![image](/images/cover.png)
 
 Put all you social media accounts, contact details into one QR code with this simple app!
